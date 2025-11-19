@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { channels } from "@/lib/helpers/channels"
 import { epg } from "@/lib/helpers/epg"
 import { useEpg } from "planby"
@@ -34,6 +34,8 @@ const ChannelItem = ({ channel }) => {
 }
 
 export function EPGView() {
+  const [nowDate, setNowDate] = useState<Date>(new Date())
+  
   const epgStart = useMemo(() => {
     return new Date(Math.min(...epg.map(p => new Date(p.since).getTime())))
   }, [])
@@ -47,6 +49,7 @@ export function EPGView() {
     epg,
     startDate: epgStart,
     endDate: epgEnd,
+    nowDate,
     sidebarWidth: 200,
     itemHeight: 100,
     isSidebar: true,
@@ -58,6 +61,15 @@ export function EPGView() {
 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
+      <div style={{ padding: '10px', background: '#f0f0f0', borderBottom: '1px solid #ccc' }}>
+        <button onClick={() => setNowDate(new Date())} style={{ marginRight: '10px' }}>
+          Current Time
+        </button>
+        <button onClick={() => setNowDate(new Date(epgStart.getTime() + 2 * 60 * 60 * 1000))} style={{ marginRight: '10px' }}>
+          EPG Start + 2h
+        </button>
+        <span>Live Bar Time: {nowDate.toLocaleTimeString()}</span>
+      </div>
       <Epg {...getEpgProps()}>
         <Layout 
           {...getLayoutProps()}
