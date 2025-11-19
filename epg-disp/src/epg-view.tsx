@@ -53,7 +53,7 @@ export function EPGView() {
     isTimeline: true,
     isLine: true,
     hourWidth: 500,
-    dayWidth:1200 ``
+    dayWidth:1200 
   })
 
   return (
