@@ -1,0 +1,3 @@
+[submodule "planby-feature-update"]
+	path = planby-feature-update
+	url = https://github.com/adi-amatdev/planby-feature-update.git
